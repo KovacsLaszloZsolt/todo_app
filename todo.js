@@ -1,6 +1,5 @@
 import minimist from 'minimist';
-import fs, { write, writeFile, writeFileSync } from 'fs'
-import { getMaxListeners } from 'process';
+import fs, { write, writeFile, writeFileSync } from 'fs';
 
 const args = minimist(process.argv);
 
@@ -17,8 +16,15 @@ Parancssori argumentumok:
     }
 
 function getList() {
-    let todoList = fs.readFileSync('./todoList.txt', 'utf-8').split('\n');
+    let todoList = fs.readFileSync('./todoList.txt', 'utf-8');
+    if (todoList.length === 0) {
+        console.log('Nincs mára tennivalód! :)');
+        return;
+    }
+
+    todoList = todoList.split('\n');
     for (let i = 0; i < todoList.length; i++) {
+        
         console.log(`${i + 1}. ${todoList[i]}`);
     }
 }
