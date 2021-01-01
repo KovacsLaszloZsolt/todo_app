@@ -1,8 +1,8 @@
 import minimist from 'minimist';
-import fs, { write, writeFile, writeFileSync } from 'fs';
+import fs from 'fs';
 
 const args = minimist(process.argv);
-
+let todoList = fs.readFileSync('./todoList.txt', 'utf-8');
 function userGuide() {
         const userManual = `Parancssori Todo applikáció
 =============================
@@ -15,8 +15,7 @@ Parancssori argumentumok:
         console.log(userManual);
     }
 
-function getList() {
-    let todoList = fs.readFileSync('./todoList.txt', 'utf-8');
+function getList(todoList) {
     if (todoList.length === 0) {
         console.log('Nincs mára tennivalód! :)');
         return;
@@ -29,11 +28,19 @@ function getList() {
     }
 }
 
+function addNewTask(args) {
+    fs.appendFileSync('./todoList.txt', '\n' + args, 'utf-8');
+}
+
 // run without args and print userguide
 if (Object.keys(args).length < 2) {
     userGuide();
 }
 
 if (args.l === true) {
-    getList();
+    getList(todoList);
+}
+
+if (typeof(args.a)  === 'string') {
+    addNewTask(args.a);
 }
