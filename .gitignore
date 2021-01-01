@@ -1,0 +1,10 @@
+.vscode
+node_modules
+
+.idea
+out
+*.iml
+*.xml
+
+# if you have a mac
+.DS_Store
