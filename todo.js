@@ -111,30 +111,19 @@ function run() {
 
     if (typeof(args.c) === 'number') {
         taskDone(args.c);
+        return;
+    }
+    else if (args.c) {
+        console.log('Nem lehetséges a feladat végrehajtása: nem adtál meg indexet!');
+        return;
     }
 
 }
 
 run();
 
-// const jsonContent = fs.readFileSync( 'todos.json', 'utf-8' );
-// const jsonTodos = JSON.parse( jsonContent );
 
-// console.log( jsonTodos );
-// console.log( jsonTodos[0].name );
-
-// jsonTodos[0].name = 'Medvét kergetni';
-
-// fs.writeFileSync( 'todos.json', JSON.stringify( jsonTodos, null, 4 ) );
-
-
-
-
-
-// **9. Tennivalo elvegzese**
-
-// **Adott** a megnyitott terminál a projekt könyvtáron belül
-//     És a fájl, ahol tároljuk a tennivalókat
-//     És a fájlban 0 tennivaló van elmentve
-//     **Amikor** az applikációt az -c 2 argumentummal futtatjuk
-//     **Akkor** az alkalmazás állítsa át a második tennivaló státuszát elvégzettre
+// Adott a megnyitott terminál a projekt könyvtáron belül
+// Amikor az applikációt az -c argumentummal futtatjuk
+// Akkor nyomtassa ki a konzolra az alábbi üzenetet:
+// Nem lehetséges a feladat végrehajtása: nem adtál meg indexet!
