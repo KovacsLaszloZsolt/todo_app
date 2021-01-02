@@ -20,7 +20,7 @@ function getList() {
     }
 
     todoList = JSON.parse(todoList);
-    
+
     for(let i = 0; i < todoList.length; i++) {
         if (todoList[i].done === true) {
             console.log(`[x] ${todoList[i].task}`);
@@ -107,7 +107,7 @@ function run() {
         return;
     }
 
-    // change task for done: -c
+    // change task status done: -c
 
     if (typeof(args.c) === 'number') {
         taskDone(args.c);
