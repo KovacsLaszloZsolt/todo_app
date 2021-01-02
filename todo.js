@@ -58,8 +58,15 @@ function removeTask(index) {
 
 function taskDone(index) {
 
+    
     let todoList = fs.readFileSync('./todoList.json', 'utf-8');
     todoList = JSON.parse(todoList);
+
+    if (todoList.length < index) {
+        console.log('Nem lehetséges a feladat végrehajtása: túlindexelési probléma adódott!');
+        return;
+    }
+
     todoList[index - 1].done = true;
 
     fs.writeFileSync('./todolist.json', JSON.stringify( todoList, null, 4 ));
@@ -107,7 +114,7 @@ function run() {
         return;
     }
 
-    // change task status done: -c
+    // change task status for done: -c
 
     if (typeof(args.c) === 'number') {
         taskDone(args.c);
@@ -122,8 +129,12 @@ function run() {
 
 run();
 
+// Nem létező index
 
-// Adott a megnyitott terminál a projekt könyvtáron belül
-// Amikor az applikációt az -c argumentummal futtatjuk
-// Akkor nyomtassa ki a konzolra az alábbi üzenetet:
-// Nem lehetséges a feladat végrehajtása: nem adtál meg indexet!
+//     Adott a megnyitott terminál a projekt könyvtáron belül
+//     És a fájl, ahol tároljuk a tennivalókat
+//     És a fájlban 0 tennivaló van elmentve
+//     Amikor az applikációt az -c 20 argumentummal futtatjuk
+//     Akkor nyomtassa ki a konzolra az alábbi üzenetet:
+//     Nem lehetséges a feladat végrehajtása: túlindexelési probléma adódott!
+
