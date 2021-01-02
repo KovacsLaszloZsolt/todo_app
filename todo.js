@@ -42,8 +42,8 @@ if (args.l === true) {
     getList(todoList);
 }
 
-if (typeof(args.a)  === 'string') {
+if (args.a === 'string') {
     addNewTask(args.a);
-} else {
+} else if (args.a === true){
     console.log('Nem lehetséges új feladat hozzáadása: nincs megadva a feladat!');
 }
