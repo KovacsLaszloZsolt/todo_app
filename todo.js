@@ -2,18 +2,12 @@ import minimist from 'minimist';
 import fs from 'fs';
 
 const args = minimist(process.argv);
+const basicArgs = ['l', 'a', 'r', 'c'];
 
 function userGuide() {
-        const userManual = `Parancssori Todo applikáció
-=============================
-Parancssori argumentumok:
-        -l   Kilistázza a feladatokat
-        -a   Új feladatot ad hozzá
-        -r   Eltávolít egy feladatot
-        -c   Teljesít egy feladatot`
 
-        console.log(userManual);
-    }
+    console.log(fs.readFileSync('./userManual.txt', 'utf-8'));
+}
 
 function getList() {
 
@@ -40,41 +34,66 @@ function addNewTask(args) {
 function removeTask(index) {
 
     let todoList = fs.readFileSync('./todoList.txt', 'utf-8').split('\n');
-    todoList.splice(index, 1);
-
+    
     if (todoList.length < index) {
         console.log('Nem lehetséges az eltávolítás: túlindexelési probléma adódott!');
         return;
     }
 
-    fs.writeFileSync('./todoList.txt', '');
+    todoList.splice(index - 1, 1);
+    todoList = todoList.join('\n');
+    fs.writeFileSync('./todoList.txt', todoList);
+}
 
-    for (let i = 0; i < todoList.length; i++) {
-        fs.appendFileSync('./todoList.txt', todoList[i] + '\n');
+function run() {
+    if (Object.keys(args).length < 2) {
+        userGuide();
+        return;
+
+    } else if ((Object.keys(args).length > 2) || !basicArgs.includes(Object.keys(args)[1])) {
+        console.log('Nem támogatott argumentum!');
+        userGuide()
+        return;
+    }
+
+    if (args.l === true) {
+        getList();
+        return;
+    }
+
+    if (args.a === 'string') {
+        addNewTask(args.a);
+        return;
+    } 
+    else if (args.a){
+        console.log('Nem lehetséges új feladat hozzáadása: nincs megadva a feladat!');
+        return;
+    }
+
+    if (typeof(args.r) === 'number') {
+        removeTask(args.r);
+        return;
+    } 
+    else if (args.r) {
+        console.log('Nem lehetséges az eltávolítás: nem adott meg indexet!');
+        return;
+    } 
+    else if (typeof(args.r) === 'string') {
+        console.log('Nem lehetséges az eltávolítás: a megadott index nem szám!');
+        return;
     }
 }
 
-// run without args and print userguide
-if (Object.keys(args).length < 2) {
-    userGuide();
-}
+run();
 
-if (args.l === true) {
-    getList();
-}
 
-if (args.a === 'string') {
-    addNewTask(args.a);
-} else if (args.a === true){
-    console.log('Nem lehetséges új feladat hozzáadása: nincs megadva a feladat!');
-}
 
-if (typeof(args.r) === 'number') {
-    removeTask(args.r);
-} else if (args.r === true) {
-    console.log('Nem lehetséges az eltávolítás: nem adott meg indexet!');
-} else if (typeof(args.r) === 'string') {
-    console.log('Nem lehetséges az eltávolítás: a megadott index nem szám!');
-}
 
-console.log(typeof(args.r));
+// console.log(args);
+
+
+// Adott a megnyitott terminál a projekt könyvtáron belül
+// Amikor az applikációt egy nem támogatott argumentummal futtatjuk (pl. get)
+// Akkor nyomtassa ki a konzolra az alábbi üzenetet:
+// Nem támogatott argumentum!
+// És nyomtassa ki az applikáció "használati utasítását"
