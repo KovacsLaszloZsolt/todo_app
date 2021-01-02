@@ -73,13 +73,8 @@ if (typeof(args.r) === 'number') {
     removeTask(args.r);
 } else if (args.r === true) {
     console.log('Nem lehetséges az eltávolítás: nem adott meg indexet!');
+} else if (typeof(args.r) === 'string') {
+    console.log('Nem lehetséges az eltávolítás: a megadott index nem szám!');
 }
 
-
-
-// Adott a megnyitott terminál a projekt könyvtáron belül
-// És a fájl, ahol tároljuk a tennivalókat
-// És a fájlban 0 tennivaló van elmentve
-// Amikor az applikációt az -r 20 argumentummal futtatjuk
-// Akkor nyomtassa ki a konzolra az alábbi üzenetet:
-// Nem lehetséges az eltávolítás: túlindexelési probléma adódott!
+console.log(typeof(args.r));
