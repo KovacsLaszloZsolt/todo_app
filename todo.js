@@ -29,6 +29,7 @@ function getList(todoList) {
 }
 
 function addNewTask(args) {
+
     fs.appendFileSync('./todoList.txt', '\n' + args, 'utf-8');
 }
 
@@ -43,4 +44,6 @@ if (args.l === true) {
 
 if (typeof(args.a)  === 'string') {
     addNewTask(args.a);
+} else {
+    console.log('Nem lehetséges új feladat hozzáadása: nincs megadva a feladat!');
 }
