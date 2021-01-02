@@ -11,19 +11,30 @@ function userGuide() {
 
 function getList() {
 
-    let todoList = fs.readFileSync('./todoList.txt', 'utf-8');
+    let todoList = fs.readFileSync('./todoList.json', 'utf-8');
 
+    // console.log(todoList);
     if (todoList.length === 0) {
         console.log('Nincs mára tennivalód! :)');
         return;
     }
-    
-    todoList = todoList.split('\n');
 
-    for (let i = 0; i < todoList.length; i++) {
-        
-        console.log(`${i + 1}. ${todoList[i]}`);
+    todoList = JSON.parse(todoList);
+    
+    for(let i = 0; i < todoList.length; i++) {
+        if (todoList[i].done === true) {
+            console.log(`[x] ${todoList[i].task}`);
+        }
+        else {
+            console.log(`[ ] ${todoList[i].task}`);
+        }
     }
+    
+
+    // for (let i = 0; i < todoList.length; i++) {
+        
+    //     console.log(`${i + 1}. ${todoList[i]}`);
+    // }
 }
 
 function addNewTask(args) {
