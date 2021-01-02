@@ -1,0 +1,14 @@
+[
+    {
+        "task": "Kutyát sétáltatni",
+        "done": false
+    },
+    {
+        "task": "Tejet venni",
+        "done": true
+    },
+    {
+        "task": "Megcsinálni a leckét",
+        "done": true
+    }
+]

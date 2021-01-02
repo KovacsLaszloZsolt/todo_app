@@ -45,7 +45,17 @@ function removeTask(index) {
     fs.writeFileSync('./todoList.txt', todoList);
 }
 
+function taskDone(index) {
+
+    let todoList = fs.readFileSync('./todoList.json', 'utf-8');
+    todoList = JSON.parse(todoList);
+    todoList[index - 1].done = true;
+
+    fs.writeFileSync('./todolist.json', JSON.stringify( todoList, null, 4 ));
+}
+
 function run() {
+    // write user manuel: no or not existing arguments
     if (Object.keys(args).length < 2) {
         userGuide();
         return;
@@ -56,11 +66,13 @@ function run() {
         return;
     }
 
+    // write task list: -l arguments
     if (args.l === true) {
         getList();
         return;
     }
 
+    // add new task: -a arguments
     if (args.a === 'string') {
         addNewTask(args.a);
         return;
@@ -70,6 +82,7 @@ function run() {
         return;
     }
 
+    // remove task: argument -r 
     if (typeof(args.r) === 'number') {
         removeTask(args.r);
         return;
@@ -82,18 +95,35 @@ function run() {
         console.log('Nem lehetséges az eltávolítás: a megadott index nem szám!');
         return;
     }
+
+    // change task for done: -c
+
+    if (typeof(args.c) === 'number') {
+        taskDone(args.c);
+    }
+
 }
 
 run();
 
+// const jsonContent = fs.readFileSync( 'todos.json', 'utf-8' );
+// const jsonTodos = JSON.parse( jsonContent );
+
+// console.log( jsonTodos );
+// console.log( jsonTodos[0].name );
+
+// jsonTodos[0].name = 'Medvét kergetni';
+
+// fs.writeFileSync( 'todos.json', JSON.stringify( jsonTodos, null, 4 ) );
 
 
 
-// console.log(args);
 
 
-// Adott a megnyitott terminál a projekt könyvtáron belül
-// Amikor az applikációt egy nem támogatott argumentummal futtatjuk (pl. get)
-// Akkor nyomtassa ki a konzolra az alábbi üzenetet:
-// Nem támogatott argumentum!
-// És nyomtassa ki az applikáció "használati utasítását"
+// **9. Tennivalo elvegzese**
+
+// **Adott** a megnyitott terminál a projekt könyvtáron belül
+//     És a fájl, ahol tároljuk a tennivalókat
+//     És a fájlban 0 tennivaló van elmentve
+//     **Amikor** az applikációt az -c 2 argumentummal futtatjuk
+//     **Akkor** az alkalmazás állítsa át a második tennivaló státuszát elvégzettre
