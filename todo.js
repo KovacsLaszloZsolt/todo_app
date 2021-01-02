@@ -66,4 +66,7 @@ if (args.a === 'string') {
 
 if (typeof(args.r) === 'number') {
     removeTask(args.r);
+} else if (args.r === true) {
+    console.log('Nem lehetséges az eltávolítás: nem adott meg indexet!');
 }
+
